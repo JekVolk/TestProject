@@ -13,19 +13,19 @@ def load_vagons():
             print('duplicate key value violates uniqueness constraint "wagons_wagon_number_key"')
 
 
-def search_vadons(query: str):
+def search_vagons(query: str):
     vagons =session.query(model.Vagon).filter(model.Vagon.vagon_number == query).all()
-    return vagons
+    return format_vagons(vagons)
 
-def search_vadons_one(query: str):
+def search_vagon_one(query: str):
     vagon =session.query(model.Vagon).filter(model.Vagon.vagon_number == query).first()
     session.commit()
-    return vagon
+    return format_vagon(vagon)
 
-def vadons_all():
+def vagons_all():
     vagons =session.query(model.Vagon).all()
     session.commit()
-    return vagons
+    return format_vagons(vagons)
 
 def get_vagons():
     try:
@@ -34,11 +34,18 @@ def get_vagons():
     except:
         print("erorr requests")
 
-def convert_to_json(vagons: list):
-    rezult_vagons=[]
-    for vagon in vagons:
-        rezult_vagons.append({"id:": vagon.id, "VagonNumber:": vagon.vagon_number, "VagonType:": vagon.vagon_type,  "WeightBrutto:": vagon.weight_brutto})
-    return json.dumps(rezult_vagons)
+def format_vagon(vagon: model.Vagon):
+    if vagon== None:
+        return None
+    return {
+        "VagonNumber:": vagon.vagon_number,
+        "VagonType:": vagon.vagon_type,
+        "WeightBrutto:": vagon.weight_brutto}
+
+def format_vagons(vagons: list):
+    convertyed_vagons = map(format_vagon,vagons)
+
+    return list(convertyed_vagons)
 
 
 
