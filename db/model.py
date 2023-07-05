@@ -4,7 +4,7 @@ from . import engine
 
 Base = declarative_base()
 class Vagon(Base):
-    __tablename__ = "vagons"
+    __tablename__ = "vagons_pakage"
     id = Column(Integer, primary_key=True)
     vagon_number = Column(String, unique=True)
     vagon_type = Column(String)
