@@ -9,8 +9,10 @@ def load_vagons():
             session.add(model.Vagon(vagon_number=vagon["VagonNumber"], vagon_type=vagon["VagonType"], weight_brutto=vagon["WeightBrutto"]))
             session.commit()
         except IntegrityError:
+            session.rollback()
             print('duplicate key value violates uniqueness constraint "wagons_wagon_number_key"')
         except PendingRollbackError:
+            session.rollback()
             print('duplicate key value violates uniqueness constraint "wagons_wagon_number_key"')
 
 
@@ -45,17 +47,19 @@ def format_vagons(vagons: list):
     convertyed_vagons = map(format_vagon,vagons)
     return list(convertyed_vagons)
 
-def post_vagons(vagon):
+def add_vagon(vagon):
     try:
         session.add(model.Vagon(vagon_number=vagon.vagon_number, vagon_type=vagon.vagon_type, weight_brutto=vagon.weight_brutto))
         session.commit()
         return search_vagon_one(vagon.vagon_number)
     except IntegrityError:
+        session.rollback()
         return ('duplicate key value violates uniqueness constraint "wagons_wagon_number_key"')
     except PendingRollbackError:
+        session.rollback()
         return ('duplicate key value violates uniqueness constraint "wagons_wagon_number_key"')
 
-def patch_vagons(edited_vagon):
+def edit_vagon(edited_vagon):
     vagon_old = session.query(model.Vagon).filter(model.Vagon.vagon_number == edited_vagon.vagon_number).first()
     if edited_vagon.vagon_type != None :   #and edited_vagon.vagon_type== vagon_old.vagon_type
         vagon_old.vagon_type=edited_vagon.vagon_type                         #AttributeError: 'NoneType' object has no attribute 'vagon_type'
@@ -64,20 +68,22 @@ def patch_vagons(edited_vagon):
     session.commit()
     return search_vagon_one(edited_vagon.vagon_number)
 
-def delete_vagons(vagon_number: str):
+def delete_vagon(vagon_number: str):
     try:
         session.delete(session.query(model.Vagon).filter(model.Vagon.vagon_number == vagon_number).first())
         session.commit()
         return "Операція виконана успішно"
     except UnmappedInstanceError:
+        session.rollback()
         return "такий вагон не знайден в базі даних"
 
-
-
-
-
-
-
-
-
-
+def put_vagon(edited_vagon):
+    try:
+        vagon_old = session.query(model.Vagon).filter(model.Vagon.vagon_number == edited_vagon.vagon_number).first()
+        vagon_old.vagon_type=edited_vagon.vagon_type                         #AttributeError: 'NoneType' object has no attribute 'vagon_type'
+        vagon_old.weight_brutto=edited_vagon.weight_brutto
+        session.commit()
+        return search_vagon_one(edited_vagon.vagon_number)
+    except AttributeError:
+        session.rollback()
+        return "такий вагон не знайден в базі даних"

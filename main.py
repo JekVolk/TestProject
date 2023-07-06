@@ -18,12 +18,18 @@ def get_vagon(vagon_number:str = Path(regex="^\d{8}$")):
         return HTTPException(status_code=404,detail=f"Not found vagon#{vagon_number}")
     return vagon
 
-@app.post("/vagons_pakage/{vagon_number}")
-def get_post(vagon: models_pydantic.CreatedVagon):
-    return vagons_service.post_vagons(vagon)
+@app.post("/vagons_pakage")
+def post_vagon(vagon: models_pydantic.UniversalVagon):
+    return vagons_service.add_vagon(vagon)
+
+@app.put("/vagons_pakage/{vagon_number}")
+def put_vagon(vagon: models_pydantic.UniversalVagon):
+    return vagons_service.put_vagon(vagon)
+
 @app.patch("/vagons_pakage/{vagon_number}")
-def get_patch(vagon: models_pydantic.EditedVagon):
-    return vagons_service.patch_vagons(vagon)
+def patch_vagon(vagon: models_pydantic.EditedVagon):
+    return vagons_service.edit_vagon(vagon)
+
 @app.delete("/vagons_pakage/{vagon_number}")
-def get_delete(vagon_number:str = Path(regex="^\d{8}$")):
-    return vagons_service.delete_vagons(vagon_number)
+def delete_vagon(vagon_number:str = Path(regex="^\d{8}$")):
+    return vagons_service.delete_vagon(vagon_number)
