@@ -1,6 +1,6 @@
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
 from sqlalchemy.orm.exc import UnmappedInstanceError
-from db import model,session
+from app.db import model,session
 import requests
 
 def load_vagons():

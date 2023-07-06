@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a6cfc10-a0c7-4f52-b0a1-4ea8e5493810" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vagons_pakage/vagons_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/vagons_pakage/vagons_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagons_pakage/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagons_pakage/models_pydantic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vagons_pakage/vagons_service.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
