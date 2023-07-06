@@ -20,7 +20,7 @@ def get_vagon(vagon_number:str = Path(regex="^\d{8}$")):
 
 @app.post("/vagons_pakage")
 def post_vagon(vagon: models_pydantic.UniversalVagon):
-    return vagons_service.add_vagon(vagon)
+    return vagons_service.add_vagon(vagon)git push
 
 @app.put("/vagons_pakage/{vagon_number}")
 def put_vagon(vagon: models_pydantic.UniversalVagon):
